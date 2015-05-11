@@ -26,8 +26,8 @@ public class API {
 
 			JSONObject jsonObject = new JSONObject(response);
 			System.out.println(jsonObject.toString(5));
-			JSONArray files = jsonObject.getJSONArray("files");
-
+			JSONArray files = jsonObject.getJSONArray("results");
+			
 			if(files != null) {
 
 				String[] names = new String[files.length()];
@@ -38,9 +38,10 @@ public class API {
 
 					JSONObject json = files.getJSONObject(i);
 
-					names[i] = json.getString("name");
-					authors[i] = json.getString("author");
-					durations[i] = json.getDouble("duration");
+					JSONObject ob = json.getJSONObject("song");
+					names[i] = ob.getString("name");
+					authors[i] = ob.getString("author");
+					durations[i] = ob.getDouble("duration");
 
 					Song song = new Song(names[i], authors[i], durations[i]);
 
